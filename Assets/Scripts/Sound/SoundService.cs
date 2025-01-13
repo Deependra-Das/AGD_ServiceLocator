@@ -1,3 +1,4 @@
+using ServiceLocator.UI;
 using System;
 using UnityEngine;
 
@@ -8,6 +9,22 @@ namespace ServiceLocator.Sound
         [SerializeField] private SoundScriptableObject soundScriptableObject;
         [SerializeField] private AudioSource audioEffects;
         [SerializeField] private AudioSource backgroundMusic;
+
+        private static SoundService instance;
+        public static SoundService Instance { get { return instance; } }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+                Debug.Log("Additional instance of SoundService destroyed.");
+            }
+        }
 
         private void Start()
         {
