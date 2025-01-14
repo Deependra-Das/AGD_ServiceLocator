@@ -90,7 +90,7 @@ namespace ServiceLocator.Player
             if (MapService.Instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                SoundService.Instance.PlaySoundEffects(SoundType.SpawnMonkey);
+                GameService.Instance.soundService.PlaySoundEffects(SoundType.SpawnMonkey);
             }
         }
 
