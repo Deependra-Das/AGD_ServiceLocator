@@ -1,3 +1,4 @@
+using ServiceLocator.Events;
 using ServiceLocator.Player;
 using ServiceLocator.Sound;
 using ServiceLocator.UI;
@@ -17,10 +18,12 @@ public class GameService : GenericMonoSingleton<GameService>
     public UIService UIService => uiService;
     public PlayerService playerService {  get; private set; }
     public SoundService soundService { get; private set; }
-
+    public EventService EventService { get; private set; }
 
     private void Start()
     {
+        EventService = new EventService();
+        uiService.SubscribeToEvents();
         playerService = new PlayerService(playerScriptableObject);
         soundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
     }
