@@ -1,4 +1,5 @@
 using ServiceLocator.Events;
+using ServiceLocator.Map;
 using ServiceLocator.Player;
 using ServiceLocator.Sound;
 using ServiceLocator.UI;
@@ -9,8 +10,10 @@ using UnityEngine;
 
 public class GameService : GenericMonoSingleton<GameService>
 {
-    [SerializeField] public PlayerScriptableObject playerScriptableObject;
+    [SerializeField] private PlayerScriptableObject playerScriptableObject;
     [SerializeField] private SoundScriptableObject soundScriptableObject;
+    [SerializeField] private MapScriptableObject mapScriptableObject;
+
     [SerializeField] private AudioSource audioEffects;
     [SerializeField] private AudioSource backgroundMusic;
 
@@ -19,6 +22,7 @@ public class GameService : GenericMonoSingleton<GameService>
     public PlayerService playerService {  get; private set; }
     public SoundService soundService { get; private set; }
     public EventService EventService { get; private set; }
+    public MapService MapService { get; private set; }
 
     private void Start()
     {
@@ -26,6 +30,7 @@ public class GameService : GenericMonoSingleton<GameService>
         uiService.SubscribeToEvents();
         playerService = new PlayerService(playerScriptableObject);
         soundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
+        MapService = new MapService(mapScriptableObject);
     }
 
     private void Update()
