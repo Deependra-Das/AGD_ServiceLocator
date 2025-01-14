@@ -67,7 +67,7 @@ namespace ServiceLocator.UI
 
         private void OnNextWaveButton()
         {
-            WaveService.Instance.StarNextWave();
+            GameService.Instance.WaveService.StarNextWave();
             SetNextWaveButton(false);
         }
 
