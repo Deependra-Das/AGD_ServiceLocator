@@ -60,7 +60,7 @@ namespace ServiceLocator.Wave.Bloon
             if (currentHealth <= 0 && currentState == BloonState.ACTIVE)
             {
                 PopBloon();
-                GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
+                GameService.Instance.SoundService.PlaySoundEffects(Sound.SoundType.BloonPop);
             }
         }
 
@@ -86,7 +86,7 @@ namespace ServiceLocator.Wave.Bloon
         private void ResetBloon()
         {
             GameService.Instance.WaveService.RemoveBloon(this);
-            GameService.Instance.playerService.TakeDamage(bloonScriptableObject.Damage);
+            GameService.Instance.PlayerService.TakeDamage(bloonScriptableObject.Damage);
             bloonView.gameObject.SetActive(false);
         }
 
@@ -105,7 +105,7 @@ namespace ServiceLocator.Wave.Bloon
             if (HasLayeredBloons())
                 SpawnLayeredBloons();
 
-            GameService.Instance.playerService.GetReward(bloonScriptableObject.Reward);
+            GameService.Instance.PlayerService.GetReward(bloonScriptableObject.Reward);
             GameService.Instance.WaveService.RemoveBloon(this);
         }
 

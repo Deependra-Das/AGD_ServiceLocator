@@ -21,8 +21,8 @@ public class GameService : GenericMonoSingleton<GameService>
 
     [SerializeField] private UIService uiService;
     public UIService UIService => uiService;
-    public PlayerService playerService {  get; private set; }
-    public SoundService soundService { get; private set; }
+    public PlayerService PlayerService {  get; private set; }
+    public SoundService SoundService { get; private set; }
     public EventService EventService { get; private set; }
     public MapService MapService { get; private set; }
     public WaveService WaveService { get; private set; }
@@ -31,14 +31,14 @@ public class GameService : GenericMonoSingleton<GameService>
     {
         EventService = new EventService();
         uiService.SubscribeToEvents();
-        playerService = new PlayerService(playerScriptableObject);
-        soundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
+        PlayerService = new PlayerService(playerScriptableObject);
+        SoundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
         MapService = new MapService(mapScriptableObject);
         WaveService = new WaveService(waveScriptableObject);
     }
 
     private void Update()
     {
-        playerService.Update();
+        PlayerService.Update();
     }
 }
