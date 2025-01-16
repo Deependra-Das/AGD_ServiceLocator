@@ -8,6 +8,7 @@ using ServiceLocator.Map;
 using ServiceLocator.Sound;
 using ServiceLocator.Wave;
 using ServiceLocator.Events;
+using ServiceLocator.Player;
 
 namespace ServiceLocator.UI
 {
@@ -15,6 +16,7 @@ namespace ServiceLocator.UI
     {
         private EventService eventService;
         private WaveService waveService;
+        private PlayerService playerService;
 
         [Header("Gameplay Panel")]
         [SerializeField] private GameObject gameplayPanel;
@@ -44,25 +46,28 @@ namespace ServiceLocator.UI
 
         private void Start()
         {
-            monkeySelectionController = new MonkeySelectionUIController(cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
-            MonkeySelectionPanel.SetActive(false);
-            monkeySelectionController.SetActive(false);
-
             gameplayPanel.SetActive(false);
-            levelSelectionPanel.SetActive(true);
             gameEndPanel.SetActive(false);
 
             nextWaveButton.onClick.AddListener(OnNextWaveButton);
             quitButton.onClick.AddListener(OnQuitButtonClicked);
             playAgainButton.onClick.AddListener(OnPlayAgainButtonClicked);
         }
-        public void Init(WaveService waveService, EventService eventService)
+        public void Init(WaveService waveService, EventService eventService, PlayerService playerService)
         {
             this.waveService = waveService;
             this.eventService = eventService;
+            this.playerService = playerService;
 
             InitializeMapSelectionUI(eventService);
+            InitializeMonkeySelectionUI(playerService);
             SubscribeToEvents();
+        }
+        private void InitializeMonkeySelectionUI(PlayerService playerService)
+        {
+            monkeySelectionController = new MonkeySelectionUIController(playerService, cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
+            MonkeySelectionPanel.SetActive(false);
+            monkeySelectionController.SetActive(false);
         }
 
         private void InitializeMapSelectionUI(EventService eventService)

@@ -9,7 +9,7 @@ using ServiceLocator.UI;
 
 namespace ServiceLocator.Main
 {
-    public class GameService : GenericMonoSingleton<GameService>
+    public class GameService : MonoBehaviour
     {
         // Services:
         public EventService EventService { get; private set; }
@@ -49,7 +49,7 @@ namespace ServiceLocator.Main
 
         private void InjectDependencies()
         {
-            UIService.Init(WaveService, EventService);
+            UIService.Init(WaveService, EventService, PlayerService);
             PlayerService.Init(UIService, MapService, SoundService);
             WaveService.Init(UIService, MapService, SoundService, EventService, PlayerService);
             MapService.Init(EventService);
